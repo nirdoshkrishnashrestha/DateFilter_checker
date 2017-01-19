@@ -1,0 +1,98 @@
+​<html>
+<head>
+<title>Title Here</title>
+<script src="http://momentjs.com/downloads/moment.js"></script>
+<script>
+
+function dateChecker()
+{
+    var date1, string, re;
+    //re=/^\d{4}\/(10|11|12|\d)\/((1|2)?\d|30|31)$/;
+     re = /^\d{4}\/\d{2}\/\d{2}$/;
+     date1 = document.getElementById("visitDate").value;
+        
+      if(date1 != '' && !date1.match(re)) {
+         
+        document.getElementById("showError").innerHTML = "Insert Correct Date";
+        document.getElementById("showError").style.color = "red";
+        $("#submit").prop("disabled", true);
+         
+          }
+        else{
+           
+        document.getElementById("showError").innerHTML = "";
+        document.getElementById("showError").style.color = "red";
+        $("#submit").removeAttr('disabled');
+           
+            } 
+
+/*   
+var date1, string, re;
+re=/^\d{4}\/(10|11|12|\d)\/((1|2)?\d|30|31)$/;
+date1 = document.getElementById("visitDate").value;   
+    if(date1.length == 0)
+    {
+        document.getElementById("showError").innerHTML = "Date Cannot Be Empty";
+        document.getElementById("showError").style.color = "red";
+        $("#submit").prop("disabled", true);
+    }
+    else if(re.test(date1))
+    {
+        document.getElementById("showError").innerHTML = "Date is Ok";
+        document.getElementById("showError").style.color = "red";
+        $("#submit").removeAttr('disabled');
+    }
+    if(!moment(date1, 'YYYY/MM/DD',true).isValid())
+    {   
+        document.getElementById("showError").innerHTML = "Please Insert Correct Date";
+        document.getElementById("showError").style.color = "red";
+        $("#submit").prop("disabled", true);
+    }
+    else
+    {
+        document.getElementById("showError").innerHTML = "It is not a date";
+        document.getElementById("showError").style.color = "red";
+        $("#submit").prop("disabled", true);
+    }
+*/   
+}
+
+function compareReporting()
+{
+date1 = document.getElementById("visitDate").value;   
+var bits = date1.split('/');
+var year = bits[0], month = bits[1], day = bits[2] ;
+  if (month < 1 || month > 12) { // check month range
+ alert("Month must be between 1 and 12");
+  }
+ if (day < 1 || day > 31)
+  {
+  alert("Day must be between 1 and 31"); return false;
+   }
+   if ((month==4 || month==6 || month==9 || month==11) && day==31)
+    {
+         alert("Month "+month+" doesn't have 31 days!")
+          return false;
+         }
+         if (month == 2) { // check for february 29th
+         var isleap = (year % 4 == 0 && (year % 100 != 0 || year % 400 == 0));
+         if (day>29 || (day==29 && !isleap))
+         { alert("February " + year + " doesn't have " + day + " days!");
+         return false; }
+         } return true;
+         // date is valid } - See more at: https://www.informationbuilders.com/support/developers/javascript-validate-date-entry#sthash.pHQQ3m7B.dpuf   
+
+}
+
+
+</script>
+</head>
+
+<body>
+
+<input type="text" id="visitDate" onKeyUp="dateChecker()"   name="visitdate" style="width:200px" onBlur="compareReporting()" placeholder="YYYY/MM/DD" />
+<input type="text" name="abc" id="som" />
+<div id="showError"></div>
+
+</body>
+</html>
